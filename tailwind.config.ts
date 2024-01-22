@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss'
 
+const themeColors = {
+  black: '#1D1D1D',
+  gray: '#666666',
+  darkGray: '#262626',
+  red: '#F8594E',
+}
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,8 +15,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        web: '1200px',
+      },
       fontFamily: {
         sans: ['var(--font-articulat)'],
+      },
+      colors: {
+        custom: {
+          ...themeColors,
+        },
       },
     },
   },
