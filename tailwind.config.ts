@@ -4,6 +4,9 @@ const themeColors = {
   black: '#1D1D1D',
   gray: '#666666',
   darkGray: '#262626',
+  mediumDarkGray: '#545454',
+  mediumGray: '#404040',
+  lightGray: '#D1D1D1',
   red: '#F8594E',
 }
 
