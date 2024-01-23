@@ -13,11 +13,11 @@ const getSong = async (id: string) => {
   return response
 }
 
-const getRelatedSongs = async (relatedIds) => {
+const getRelatedSongs = async (relatedIds: number[]) => {
   const relatedSongs = []
   if (relatedIds) {
     for (const id of relatedIds) {
-      const response = await getSongById(id)
+      const response = await getSongById(String(id))
 
       if (response) {
         relatedSongs.push(response)
@@ -27,7 +27,7 @@ const getRelatedSongs = async (relatedIds) => {
   return relatedSongs
 }
 
-const Song = async ({ params }) => {
+const Song = async ({ params }: { params: { id: string } }) => {
   const { song, related, id } = await getSong(params.id)
   const relatedSongs = await getRelatedSongs(related)
 

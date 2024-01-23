@@ -24,6 +24,7 @@ const Home = () => {
       getInitialSongs()
     }
     getFavoriteSongs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const totalSongs = songs.length

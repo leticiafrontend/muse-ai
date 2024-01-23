@@ -4,13 +4,22 @@ import Image from 'next/image'
 import { useSongs } from '@/hooks/Songs'
 import { SongType } from '@/types'
 
-export const FavoriteButton = ({ song }: SongType) => {
+export const FavoriteButton = ({ song }: { song: SongType }) => {
   const { handleFavoriteClick, favorites } = useSongs()
+  console.log(song)
 
-  const favoritesLocal = JSON.parse(localStorage.getItem('favorites'))
+  const favoritesLocalString: string | null = localStorage.getItem('favorites')
+  const favoritesLocal: SongType[] | [] = favoritesLocalString
+    ? JSON.parse(favoritesLocalString)
+    : []
+
   const isSelected =
-    favorites.some((favorite) => favorite.id === song.id) ||
-    favoritesLocal?.some((favorite) => favorite.id === song.id)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore:next-line
+    favorites.some((favorite: SongType) => favorite.id === song.id) ||
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore:next-line
+    favoritesLocal?.some((favorite: SongType) => favorite.id === song.id)
 
   const handleFavoriteToggle = () => {
     handleFavoriteClick(song)

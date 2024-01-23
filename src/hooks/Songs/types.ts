@@ -9,8 +9,8 @@ export type SongsContextData = {
   orderToggle: boolean
   handleOrderToggle: () => void
   getFavoriteSongs: () => void
-  handleFavoriteClick: () => void
-  favorites: number[]
+  handleFavoriteClick: (song: SongType) => void
+  favorites: SongType[]
   favoriteToggle: boolean
   handleFavoriteToggle: () => void
 }

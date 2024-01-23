@@ -1,7 +1,7 @@
 'use client'
 import { Howl } from 'howler'
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 
 import { calculateTimeDifference } from '@/utils/calculateTimeDifference'
 import { formatTime } from '@/utils/formatTime'
@@ -35,6 +35,7 @@ const Player = ({ audioSrc, songDetails }: PlayerType) => {
         },
       }),
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioSrc])
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const Player = ({ audioSrc, songDetails }: PlayerType) => {
         audio.unload()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
   const togglePlay = () => {
@@ -55,10 +57,10 @@ const Player = ({ audioSrc, songDetails }: PlayerType) => {
     setPlaying(!isPlaying)
   }
 
-  const handleSeek = (e) => {
-    const seekTo = audio.duration() * (e.target.value / 100)
+  const handleSeek = (e: ChangeEvent<HTMLInputElement>) => {
+    const seekTo = audio.duration() * (Number(e.target.value) / 100)
     audio.seek(seekTo)
-    setProgress(e.target.value)
+    setProgress(Number(e.target.value))
   }
 
   const updateProgress = () => {
@@ -72,6 +74,7 @@ const Player = ({ audioSrc, songDetails }: PlayerType) => {
     if (isPlaying) {
       requestAnimationFrame(updateProgress)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
   return (

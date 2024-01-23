@@ -1,14 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
 import { getSearchSong } from '@/core/requests'
+import { SongType } from '@/types'
 import { generateSlug } from '@/utils/generateSlug'
 
 export const Input = () => {
   const [inputValue, setInputValue] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+  const [suggestions, setSuggestions] = useState<SongType[] | []>([])
   const [openSuggestions, setOpenSuggestions] = useState(false)
 
   const handleSelect = (title: string) => {
@@ -29,7 +30,7 @@ export const Input = () => {
     }
   }, 300)
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event

@@ -12,9 +12,9 @@ const SongsContext = createContext({} as SongsContextData)
 export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
   const [orderToggle, setOrderToggle] = useState(false)
   const [favoriteToggle, setFavoriteToggle] = useState(false)
-  const [songs, setSongs] = useState([])
-  const [defaultSongs, setDefaultSongs] = useState([])
-  const [favorites, setFavorites] = useState([])
+  const [songs, setSongs] = useState<SongType[] | []>([])
+  const [defaultSongs, setDefaultSongs] = useState<SongType[] | []>([])
+  const [favorites, setFavorites] = useState<SongType[] | []>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -41,8 +41,17 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
     }
   }
 
+  const getFavoritesFromLocalStorage = (): SongType[] => {
+    const favoritesString = localStorage.getItem('favorites')
+    return favoritesString ? JSON.parse(favoritesString) : []
+  }
+
+  const updateFavoritesInLocalStorage = (favorites: SongType[]) => {
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  }
+
   const getFavoriteSongs = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+    const favorites = getFavoritesFromLocalStorage()
 
     if (orderToggle) {
       const sortFavorites = [...favorites]
@@ -70,10 +79,10 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
   }
 
   const saveFavoriteSong = (song: SongType) => {
-    const updatedFavorites = JSON.parse(localStorage.getItem('favorites')) || []
+    const updatedFavorites = getFavoritesFromLocalStorage()
 
     updatedFavorites.push(song)
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites))
+    updateFavoritesInLocalStorage(updatedFavorites)
     setFavorites(updatedFavorites)
   }
 
@@ -81,12 +90,12 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
     const updatedFavorites = favorites.filter(
       (favorite) => favorite.id !== song.id,
     )
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites))
+    updateFavoritesInLocalStorage(updatedFavorites)
     setFavorites(updatedFavorites)
   }
 
   const handleFavoriteClick = (song: SongType) => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+    const favorites = getFavoritesFromLocalStorage()
 
     const isFavorite = favorites.some((favorite) => favorite.id === song.id)
 
