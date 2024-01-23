@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 
 export const Input = () => {
-  const isTyping = true
+  const isTyping = false
 
   const data = ['1', '2', '3']
 
