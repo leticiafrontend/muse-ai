@@ -7,7 +7,10 @@ import { SongType } from '@/types'
 export const FavoriteButton = ({ song }: SongType) => {
   const { handleFavoriteClick, favorites } = useSongs()
 
-  const isSelected = favorites.some((favorite) => favorite.id === song.id)
+  const favoritesLocal = JSON.parse(localStorage.getItem('favorites'))
+  const isSelected =
+    favorites.some((favorite) => favorite.id === song.id) ||
+    favoritesLocal?.some((favorite) => favorite.id === song.id)
 
   const handleFavoriteToggle = () => {
     handleFavoriteClick(song)

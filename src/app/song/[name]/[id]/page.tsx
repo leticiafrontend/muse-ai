@@ -14,20 +14,20 @@ const getSong = async (id: string) => {
 
 const getRelatedSongs = async (relatedIds) => {
   const relatedSongs = []
+  if (relatedIds) {
+    for (const id of relatedIds) {
+      const response = await getSongById(id)
 
-  for (const id of relatedIds) {
-    const response = await getSongById(id)
-
-    if (response) {
-      relatedSongs.push(response)
+      if (response) {
+        relatedSongs.push(response)
+      }
     }
   }
-
   return relatedSongs
 }
 
 const Song = async ({ params }) => {
-  const { song, related } = await getSong(params.id)
+  const { song, related, id } = await getSong(params.id)
   const relatedSongs = await getRelatedSongs(related)
 
   const haveRelatedSongs = relatedSongs.length > 0
@@ -62,7 +62,7 @@ const Song = async ({ params }) => {
               <div>
                 <div className="flex items-center gap-x-5 pb-3">
                   <h1 className="text-3xl font-semibold">{song.title}</h1>
-                  <FavoriteButton song={song} />
+                  <FavoriteButton song={{ id, song }} />
                 </div>
                 <p>
                   {song.artist} <span className="px-2"></span>|
