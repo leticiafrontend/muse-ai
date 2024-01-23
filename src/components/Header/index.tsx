@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <div className="flex h-20 justify-center bg-custom-black">
-      <div className="flex w-full max-w-web items-center gap-x-14">
+      <div className="flex w-full max-w-web items-center gap-x-14 max-xl:px-4">
         <Link href="/">
           <Image
             alt="Muse.ai"

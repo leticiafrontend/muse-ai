@@ -14,6 +14,5 @@ export type SongCardType = {
         audio: string
       }
     }
-    related: number[]
   }
 }

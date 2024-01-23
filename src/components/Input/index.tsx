@@ -20,7 +20,7 @@ export const Input = () => {
 
       <input
         type="text"
-        className="w-96 rounded-lg bg-custom-darkGray p-2 pl-9 text-white outline-none placeholder:text-white focus:bg-custom-mediumGray"
+        className=" w-full max-w-96 rounded-lg bg-custom-darkGray p-2 pl-9 text-white outline-none placeholder:text-white focus:bg-custom-mediumGray"
         placeholder="Search in your library"
       />
 

@@ -11,7 +11,7 @@ export const SongCard = ({ details }: SongCardType) => {
   const { song } = details
 
   return (
-    <div className="relative h-72 w-52 rounded-lg bg-custom-darkGray">
+    <div className="relative h-80 w-52 rounded-lg bg-custom-darkGray">
       <Link href={`/song/${generateSlug(song.artist, song.title)}`}>
         <div
           className="h-52 w-52 bg-cover bg-center bg-no-repeat"

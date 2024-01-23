@@ -1,11 +1,16 @@
+'use client'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export const Favorites = () => {
-  const isSelected = false
+  const [isSelected, setIsSelected] = useState()
+
+  const handleFavoriteToggle = () => setIsSelected((isSelected) => !isSelected)
 
   return (
     <div
       className={`flex content-center gap-x-2 rounded-full ${isSelected ? 'bg-custom-mediumGray' : 'bg-custom-darkGray'} cursor-pointer px-6 py-2`}
+      onClick={handleFavoriteToggle}
     >
       <Image
         alt="heart"

@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 
 import './globals.css'
 import { Header } from '@/components/Header'
+import { SongsProvider } from '@/hooks/Songs'
 
 const articulat = localFont({
   src: [
@@ -37,10 +38,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${articulat.className}`}>
-        <div className="min-h-screen bg-black">
-          <Header />
-          <div className="mx-auto my-0 max-w-web">{children}</div>
-        </div>
+        <SongsProvider>
+          <div className="min-h-screen bg-black">
+            <Header />
+            <div className="mx-auto my-0 max-w-web">{children}</div>
+          </div>
+        </SongsProvider>
       </body>
     </html>
   )
