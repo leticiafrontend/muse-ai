@@ -15,7 +15,7 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
   const [songs, setSongs] = useState([])
   const [defaultSongs, setDefaultSongs] = useState([])
   const [favorites, setFavorites] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
   const getInitialSongs = async () => {

@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 
 import { Favorites } from '@/components/Favorites'
 import { Input } from '@/components/Input'
+import { ListSongs } from '@/components/ListSongs'
 import { Loading } from '@/components/Loading'
 import { OrderToggle } from '@/components/OrderToggle'
-import { SongCard } from '@/components/SongCard'
 import { useSongs } from '@/hooks/Songs'
 
 const Home = () => {
@@ -39,15 +39,7 @@ const Home = () => {
           <Input />
         </div>
       </div>
-      <div className="flex flex-wrap justify-between gap-8 pb-20 max-xl:px-4 max-sm:justify-center">
-        {totalSongs > 0 ? (
-          songs.map((song) => <SongCard details={song} key={song.id} />)
-        ) : (
-          <h1 className="pt-2 text-xl font-semibold text-white">
-            No song found
-          </h1>
-        )}
-      </div>
+      <ListSongs songs={songs} />
     </main>
   )
 }
