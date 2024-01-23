@@ -14,7 +14,7 @@ export const SongCard = ({ details, favorite = true }: SongCardType) => {
     <div className="relative h-80 w-52 rounded-lg bg-custom-darkGray">
       <Link href={`/song/${generateSlug(song.artist, song.title)}/${id}`}>
         <div
-          className="h-52 w-52 bg-cover bg-center bg-no-repeat"
+          className="h-52 w-52 rounded-t-lg bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${getImage(song.files.coverArt)})` }}
         ></div>
         <div className="flex justify-between p-4">

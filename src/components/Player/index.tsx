@@ -8,7 +8,9 @@ import { formatTime } from '@/utils/formatTime'
 
 import { FavoriteButton } from '../FavoriteButton'
 
-const Player = ({ audioSrc, songDetails }) => {
+import { PlayerType } from './types'
+
+const Player = ({ audioSrc, songDetails }: PlayerType) => {
   const [isPlaying, setPlaying] = useState(false)
   const [audio, setAudio] = useState(new Howl({ src: [audioSrc] }))
   const [progress, setProgress] = useState(0)
@@ -33,11 +35,15 @@ const Player = ({ audioSrc, songDetails }) => {
         },
       }),
     )
-
-    return () => {
-      audio.unload()
-    }
   }, [audioSrc])
+
+  useEffect(() => {
+    return () => {
+      if (isPlaying) {
+        audio.unload()
+      }
+    }
+  }, [isPlaying])
 
   const togglePlay = () => {
     if (isPlaying) {

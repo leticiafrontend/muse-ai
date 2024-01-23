@@ -9,10 +9,13 @@ import { OrderToggle } from '@/components/OrderToggle'
 import { useSongs } from '@/hooks/Songs'
 
 const Home = () => {
-  const { loading, songs, getInitialSongs, getFavoriteSongs } = useSongs()
+  const { loading, songs, getInitialSongs, getFavoriteSongs, favoriteToggle } =
+    useSongs()
 
   useEffect(() => {
-    getInitialSongs()
+    if (!favoriteToggle) {
+      getInitialSongs()
+    }
     getFavoriteSongs()
   }, [])
 

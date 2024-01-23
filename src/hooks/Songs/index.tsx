@@ -23,14 +23,34 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
 
     try {
       const response = await getAllSongs()
-      setSongs(response.songs)
+
       setDefaultSongs(response.songs)
       setError(false)
+
+      if (orderToggle) {
+        const sortSongs = [...songs]
+        sortSongs.sort((a, b) => a.song.title.localeCompare(b.song.title))
+        return setSongs(sortSongs)
+      }
+
+      setSongs(response.songs)
     } catch {
       setError(true)
     } finally {
       setLoading(false)
     }
+  }
+
+  const getFavoriteSongs = () => {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+
+    if (orderToggle) {
+      const sortFavorites = [...favorites]
+      sortFavorites.sort((a, b) => a.song.title.localeCompare(b.song.title))
+      return setSongs(sortFavorites)
+    }
+
+    setFavorites(favorites)
   }
 
   const handleOrderToggle = () => {
@@ -63,12 +83,6 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
     )
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites))
     setFavorites(updatedFavorites)
-  }
-
-  const getFavoriteSongs = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || []
-
-    setFavorites(favorites)
   }
 
   const handleFavoriteClick = (song: SongType) => {
