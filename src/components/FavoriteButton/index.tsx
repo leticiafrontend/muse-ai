@@ -1,11 +1,17 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
 
-export const FavoriteButton = () => {
-  const [isSelected, setIsSelected] = useState()
+import { useSongs } from '@/hooks/Songs'
+import { SongType } from '@/types'
 
-  const handleFavoriteToggle = () => setIsSelected((isSelected) => !isSelected)
+export const FavoriteButton = ({ song }: SongType) => {
+  const { handleFavoriteClick, favorites } = useSongs()
+
+  const isSelected = favorites.some((favorite) => favorite.id === song.id)
+
+  const handleFavoriteToggle = () => {
+    handleFavoriteClick(song)
+  }
 
   return (
     <div className="z-50 cursor-pointer" onClick={handleFavoriteToggle}>

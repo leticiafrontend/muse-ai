@@ -26,7 +26,7 @@ export const SongCard = ({ details, favorite = true }: SongCardType) => {
       </Link>
       {favorite ? (
         <div className="absolute bottom-2 right-4 self-end pb-2">
-          <FavoriteButton />
+          <FavoriteButton song={details} />
         </div>
       ) : null}
     </div>

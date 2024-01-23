@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 
+import { SongType } from '@/types'
 export type SongsContextData = {
   songs: SongType[]
   getInitialSongs: () => void
@@ -7,25 +8,13 @@ export type SongsContextData = {
   error: boolean
   orderToggle: boolean
   handleOrderToggle: () => void
+  getFavoriteSongs: () => void
+  handleFavoriteClick: () => void
+  favorites: number[]
+  favoriteToggle: boolean
+  handleFavoriteToggle: () => void
 }
 
 export type SongsProviderProps = {
   children: ReactNode
-}
-
-export type SongType = {
-  id: number
-  song: {
-    album: {
-      title: string
-      year: number
-    }
-    artist: string
-    title: string
-    files: {
-      coverArt: string
-      poster: string
-      audio: string
-    }
-  }
 }

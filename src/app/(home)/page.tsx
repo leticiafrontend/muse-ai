@@ -9,10 +9,11 @@ import { SongCard } from '@/components/SongCard'
 import { useSongs } from '@/hooks/Songs'
 
 const Home = () => {
-  const { loading, songs, getInitialSongs } = useSongs()
+  const { loading, songs, getInitialSongs, getFavoriteSongs } = useSongs()
 
   useEffect(() => {
     getInitialSongs()
+    getFavoriteSongs()
   }, [])
 
   const totalSongs = songs.length

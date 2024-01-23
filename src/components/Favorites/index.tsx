@@ -1,11 +1,12 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+
+import { useSongs } from '@/hooks/Songs'
 
 export const Favorites = () => {
-  const [isSelected, setIsSelected] = useState()
+  const { favoriteToggle, handleFavoriteToggle } = useSongs()
 
-  const handleFavoriteToggle = () => setIsSelected((isSelected) => !isSelected)
+  const isSelected = favoriteToggle
 
   return (
     <div
