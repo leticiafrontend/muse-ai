@@ -9,6 +9,8 @@ const themeColors = {
   lightGray: '#D1D1D1',
   lightBlue: '#00DAE8',
   red: '#F8594E',
+  gradientFrom: '#12303B',
+  gradientTo: ' #12303B00',
 }
 
 const config: Config = {

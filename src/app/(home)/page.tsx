@@ -20,7 +20,7 @@ const Home = () => {
   if (loading) return <Loading />
 
   return (
-    <main className="min-h-screen">
+    <main className="mx-auto my-0 min-h-screen max-w-web">
       <div className="flex justify-between py-14 max-xl:px-4 max-md:flex-col max-md:content-center max-md:items-center">
         <div>
           <div className="flex gap-2 max-sm:flex-col max-sm:items-center">

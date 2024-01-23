@@ -41,7 +41,7 @@ export default function RootLayout({
         <SongsProvider>
           <div className="min-h-screen bg-black">
             <Header />
-            <div className="mx-auto my-0 max-w-web">{children}</div>
+            {children}
           </div>
         </SongsProvider>
       </body>

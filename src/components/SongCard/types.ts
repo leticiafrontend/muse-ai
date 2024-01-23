@@ -15,4 +15,5 @@ export type SongCardType = {
       }
     }
   }
+  favorite?: boolean
 }

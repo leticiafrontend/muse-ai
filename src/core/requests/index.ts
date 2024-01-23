@@ -9,7 +9,7 @@ export const getAllSongs = async () => {
   return songs
 }
 
-export const getSongById = async (id: number) => {
+export const getSongById = async (id: string) => {
   const response = await api(`/song/${id}`)
   const song: SongByIdResponseType = response.json()
 
