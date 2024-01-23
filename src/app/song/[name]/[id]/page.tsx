@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 
-import { FavoriteButton } from '@/components/FavoriteButton'
 import { ListSongs } from '@/components/ListSongs'
+import Player from '@/components/Player'
 import { getSongById } from '@/core/requests'
+import { getAudio } from '@/utils/getAudio'
 import { getImage } from '@/utils/getImage'
 
 const getSong = async (id: string) => {
@@ -49,32 +50,11 @@ const Song = async ({ params }) => {
               backgroundImage: `url(${getImage(song.files.coverArt)})`,
             }}
           ></div>
-          <div className="flex flex-col justify-center ">
-            <div className="flex items-center gap-x-9  max-sm:flex-col max-sm:items-center max-sm:gap-8">
-              <button className="rounded-full bg-white">
-                <Image
-                  width="60"
-                  height="60"
-                  src="/assets/images/ic-play.svg"
-                  alt="play"
-                />
-              </button>
-              <div>
-                <div className="flex items-center gap-x-5 pb-3">
-                  <h1 className="text-3xl font-semibold">{song.title}</h1>
-                  <FavoriteButton song={{ id, song }} />
-                </div>
-                <p>
-                  {song.artist} <span className="px-2"></span>|
-                  <span className="px-2"></span>
-                  {song.album.title}
-                  <span className="px-2"></span>|<span className="px-2"></span>
-                  {song.album.year}
-                </p>
-              </div>
-            </div>
-            <p>Player</p>
-          </div>
+
+          <Player
+            audioSrc={getAudio(song.files.audio)}
+            songDetails={{ id, song }}
+          />
         </div>
         {haveRelatedSongs ? (
           <>
