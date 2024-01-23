@@ -5,7 +5,7 @@ export const OrderToggle = () => {
   const { orderToggle, handleOrderToggle } = useSongs()
 
   return (
-    <div className="flex">
+    <div className="flex w-40">
       <label className="flex gap-x-3">
         <span className="font-semibold text-white">Sort from A-Z</span>
         <div className="relative inline-flex cursor-pointer items-center">

@@ -1,5 +1,7 @@
 const fs = require('fs')
 const http = require('http')
+const querystring = require('querystring')
+const url = require('url')
 const hostname = '127.0.0.1'
 const port = 3001
 const payload = JSON.parse(
@@ -18,6 +20,19 @@ const server = http.createServer((req, res) => {
       id: i.id,
       song: i.song,
     }))
+    res.end(JSON.stringify({ songs }))
+    return
+  }
+
+  const parsedUrl = url.parse(req.url)
+  const queryParams = querystring.parse(parsedUrl.query)
+
+  if (parsedUrl.pathname === '/search' && queryParams.title) {
+    const titleQuery = queryParams.title.toLowerCase().replaceAll('-', ' ')
+    const songs = payload?.songs.filter((song) =>
+      song.song.title.toLowerCase().includes(titleQuery),
+    )
+
     res.end(JSON.stringify({ songs }))
     return
   }

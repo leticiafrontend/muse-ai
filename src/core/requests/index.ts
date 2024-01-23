@@ -15,3 +15,10 @@ export const getSongById = async (id: string) => {
 
   return song
 }
+
+export const getSearchSong = async (search: string) => {
+  const response = await api(`/search?title=${search}`)
+  const songs: SongsResponseType = response.json()
+
+  return songs
+}

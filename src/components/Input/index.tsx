@@ -1,13 +1,51 @@
 import Image from 'next/image'
-import React from 'react'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
+
+import { getSearchSong } from '@/core/requests'
+import { generateSlug } from '@/utils/generateSlug'
 
 export const Input = () => {
-  const isTyping = false
+  const [inputValue, setInputValue] = useState('')
+  const [suggestions, setSuggestions] = useState([])
+  const [openSuggestions, setOpenSuggestions] = useState(false)
 
-  const data = ['1', '2', '3']
+  const handleSelect = (title: string) => {
+    setInputValue(title)
+    setOpenSuggestions(false)
+  }
+
+  const searchSuggestions = useDebouncedCallback(async (value: string) => {
+    try {
+      const response = await getSearchSong(value)
+      if (response.songs.length > 0) {
+        setSuggestions(response.songs)
+        setOpenSuggestions(true)
+      }
+    } catch {
+      setSuggestions([])
+      setOpenSuggestions(false)
+    }
+  }, 300)
+
+  const handleSearch = (event) => {
+    const {
+      target: { value },
+    } = event
+
+    setInputValue(value)
+
+    if (value === '') {
+      setOpenSuggestions(false)
+      return setSuggestions([])
+    }
+
+    searchSuggestions(value)
+  }
 
   return (
-    <div>
+    <div className="relative w-full max-w-96">
       <div className="relative">
         <Image
           alt="Search"
@@ -20,18 +58,25 @@ export const Input = () => {
 
       <input
         type="text"
-        className=" w-full max-w-96 rounded-lg bg-custom-darkGray p-2 pl-9 text-white outline-none placeholder:text-white focus:bg-custom-mediumGray"
+        className=" w-full rounded-lg bg-custom-darkGray p-2 pl-9 text-white outline-none placeholder:text-white focus:bg-custom-mediumGray"
         placeholder="Search in your library"
+        value={inputValue}
+        onChange={handleSearch}
       />
 
-      {isTyping ? (
-        <ul className="absolute mt-2 w-96 rounded-lg bg-custom-darkGray p-4">
-          {data.map((item) => (
+      {openSuggestions ? (
+        <ul className="absolute z-50 mt-2 w-full rounded-lg bg-custom-darkGray p-4">
+          {suggestions.map(({ song, id }) => (
             <li
-              className="cursor-pointer border-b border-custom-mediumDarkGray pb-4 pt-4 text-custom-lightGray first:pt-0 last:border-0 last:pb-0"
-              key={item}
+              className="border-b border-custom-mediumDarkGray pb-4 pt-4 text-custom-lightGray first:pt-0 last:border-0 last:pb-0"
+              key={id}
             >
-              option {item}
+              <Link
+                href={`/song/${generateSlug(song.artist, song.title)}/${id}`}
+                onClick={() => handleSelect(song.title)}
+              >
+                {song.title}
+              </Link>
             </li>
           ))}
         </ul>

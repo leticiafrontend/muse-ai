@@ -17,7 +17,7 @@ export const FavoriteButton = ({ song }: SongType) => {
   }
 
   return (
-    <div className="z-50 cursor-pointer" onClick={handleFavoriteToggle}>
+    <div className="z-40 cursor-pointer" onClick={handleFavoriteToggle}>
       <Image
         alt="heart"
         src={`/assets/images/ic-heart${isSelected ? '' : '-empty'}.svg`}
