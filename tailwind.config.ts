@@ -7,6 +7,7 @@ const themeColors = {
   mediumDarkGray: '#545454',
   mediumGray: '#404040',
   lightGray: '#D1D1D1',
+  lightBlue: '#00DAE8',
   red: '#F8594E',
 }
 
