@@ -8,7 +8,9 @@ import { SongsContextData, SongsProviderProps } from './types'
 const SongsContext = createContext({} as SongsContextData)
 
 export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
+  const [orderToggle, setOrderToggle] = useState(false)
   const [songs, setSongs] = useState([])
+  const [defaultSongs, setDefaultSongs] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
@@ -18,12 +20,25 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
     try {
       const response = await getAllSongs()
       setSongs(response.songs)
+      setDefaultSongs(response.songs)
       setError(false)
     } catch {
       setError(true)
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleOrderToggle = () => {
+    setOrderToggle((prev) => !prev)
+
+    if (!orderToggle) {
+      const sortSongs = [...songs]
+      sortSongs.sort((a, b) => a.song.title.localeCompare(b.song.title))
+      return setSongs(sortSongs)
+    }
+
+    setSongs(defaultSongs)
   }
 
   return (
@@ -33,6 +48,8 @@ export const SongsProvider: React.FC<SongsProviderProps> = ({ children }) => {
         getInitialSongs,
         loading,
         error,
+        orderToggle,
+        handleOrderToggle,
       }}
     >
       {children}

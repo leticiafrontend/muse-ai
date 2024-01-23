@@ -5,6 +5,8 @@ export type SongsContextData = {
   getInitialSongs: () => void
   loading: boolean
   error: boolean
+  orderToggle: boolean
+  handleOrderToggle: () => void
 }
 
 export type SongsProviderProps = {
