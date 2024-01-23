@@ -1,6 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 
+import { Error } from '@/components/Error'
 import { Favorites } from '@/components/Favorites'
 import { Input } from '@/components/Input'
 import { ListSongs } from '@/components/ListSongs'
@@ -9,8 +10,14 @@ import { OrderToggle } from '@/components/OrderToggle'
 import { useSongs } from '@/hooks/Songs'
 
 const Home = () => {
-  const { loading, songs, getInitialSongs, getFavoriteSongs, favoriteToggle } =
-    useSongs()
+  const {
+    loading,
+    songs,
+    getInitialSongs,
+    getFavoriteSongs,
+    favoriteToggle,
+    error,
+  } = useSongs()
 
   useEffect(() => {
     if (!favoriteToggle) {
@@ -20,6 +27,8 @@ const Home = () => {
   }, [])
 
   const totalSongs = songs.length
+
+  if (error) return <Error />
 
   if (loading) return <Loading />
 
