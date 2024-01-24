@@ -6,7 +6,6 @@ import { SongType } from '@/types'
 
 export const FavoriteButton = ({ song }: { song: SongType }) => {
   const { handleFavoriteClick, favorites } = useSongs()
-  console.log(song)
 
   const favoritesLocalString: string | null = localStorage.getItem('favorites')
   const favoritesLocal: SongType[] | [] = favoritesLocalString

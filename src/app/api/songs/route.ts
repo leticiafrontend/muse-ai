@@ -1,12 +1,9 @@
-import fs from 'fs'
-
 import { SongType } from '@/types'
-const payload = JSON.parse(
-  fs.readFileSync('./server-payload.json', { encoding: 'utf8' }),
-)
+
+import data from '../data.json'
 
 export const GET = async () => {
-  const songs = payload?.songs.map((i: SongType) => ({
+  const songs = data?.songs.map((i: SongType) => ({
     id: i.id,
     song: i.song,
   }))
